@@ -1,0 +1,101 @@
+class SinglyLinkedList{
+    //class - Node
+    static class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data = data;
+        }
+    }
+    //head
+    private Node head = null;
+    //insertAtBeg()
+    public void insertAtBeg(int data){
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+    //insertAtEnd();
+    public void insertAtEnd(int data){
+        Node newNode = new Node(data);
+        Node temp = head;
+        newNode.next = null;
+        while(temp.next != null){
+            temp = temp.next;
+        }
+        temp.next = newNode;
+    }
+    //display
+    public void display(){
+        Node temp = head;
+        while(temp!=null){
+            System.out.print(temp.data +"->");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+    //deleteAtBeg()
+    public void deleteAtBeg(){
+        head = head.next;
+    }
+    //deleteAtEnd()
+    public void deleteAtEnd(){
+        Node temp = head;
+        while(temp.next.next!=null){
+            temp = temp.next;
+        }
+        temp.next=null;
+    }
+    //insertAtMid()
+    public void insertAtMid(int p,int data){
+        Node newNode = new Node(data);
+        Node temp = head;
+        int c = 1;
+        while(c<p-1){
+            temp = temp.next;
+            c+=1;
+        }
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+	//deleteAtMid() 
+	public void deleteAtMid(int p){
+		Node temp = head;
+		int c = 1;
+		while(temp!=null && c<p-1){
+			temp = temp.next;
+			c++;
+		}
+		temp.next = temp.next.next;
+	}
+    
+    public void deleteKthNode(int k){
+        int c = 1;
+        Node temp = head;
+        while(temp!=null && temp.next!=null){
+            if((c+1)%k==0){
+                temp.next = temp.next.next;
+                c+=1;
+            }
+            else{
+                temp = temp.next;
+                c++;
+            }  
+        }
+    }
+}
+public class DeleteKNode{
+    public static void main(String[] args){
+        SinglyLinkedList s = new SinglyLinkedList();
+        s.insertAtBeg(8);
+        s.insertAtBeg(7);
+        s.insertAtBeg(6);
+        s.insertAtBeg(5);
+        s.insertAtBeg(4);
+        s.insertAtEnd(9);
+        s.insertAtMid(4,11);
+        s.display();
+        s.deleteKthNode(2);
+        s.display();
+    }
+}
